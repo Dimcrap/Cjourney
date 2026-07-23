@@ -4,8 +4,5 @@
 
 int main(){
 
-int result=number();
-printf("function did worked %d",result);
-
-printf("hello world");
+tobinary(12);
 }
