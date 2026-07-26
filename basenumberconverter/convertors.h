@@ -1,12 +1,15 @@
 #include <stdio.h>
+#include <stdlib.h>
 
-typdef struct{
-int * numbers=NULL;
-int count=0;
-int length=1;
+
+typedef struct{
+int * numbers;
+int count;
+int length;
 }numarr;
 
 
+numarr make_arr();		
 void insertnumarr(numarr * arr,int value);
 int tobinary(int number);
 int todecimal(int number);

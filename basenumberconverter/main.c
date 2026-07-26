@@ -4,5 +4,7 @@
 
 int main(){
 
-tobinary(12);
+int number=tobinary(150);
+
+printf("number is %i \n",number);
 }
