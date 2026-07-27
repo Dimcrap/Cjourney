@@ -54,7 +54,24 @@ int tobinary(int number){
 }
 
 
-int todecimal(int number){};
+
+int todecimal(int number){
+	
+
+	int result=0,count=0,len=snprintf(NULL,0,"%d",number);	
+	char binstring[len];
+	sprintf(binstring,"%d",number);	
+	
+
+	for(int i=(sizeof(binstring)/sizeof(binstring[0]))-1; i>=0 ; i-- ){
+		printf("value is : %i \n power value: %i element value is %i \n",
+			(binstring[i]-'0')*(int)pow(2,count),(int)pow(2,count),binstring[i]-'0');
+		result+=(binstring[i]-'0')*(int)pow(2,count++);
+	}
+
+	
+	return result;
+};
 
 
 int tooctal(int number){};
