@@ -64,8 +64,6 @@ int todecimal(int number){
 	
 
 	for(int i=(sizeof(binstring)/sizeof(binstring[0]))-1; i>=0 ; i-- ){
-		printf("value is : %i \n power value: %i element value is %i \n",
-			(binstring[i]-'0')*(int)pow(2,count),(int)pow(2,count),binstring[i]-'0');
 		result+=(binstring[i]-'0')*(int)pow(2,count++);
 	}
 
@@ -74,7 +72,30 @@ int todecimal(int number){
 };
 
 
-int tooctal(int number){};
+int tooctal(int number){
+	
+	numarr arr=make_arr();
+	
+	while(number>=0){
+		
+		if(number<8){
+			insertnumarr(&arr,number);
+			break;
+		}
+
+		insertnumarr(&arr,number%8);
+		number/=8;
+	};
+	
+	char result[arr.count];
+	for(int i=(arr.count)-1,k=0;i>=0;i--,k++){
+		printf("number of elements in arr:%d \n current assingment %d\n",arr.count,arr.numbers[i]);
+		result[k]=arr.numbers[i]+'0';
+	}
+	result[arr.count]='\0';
+
+	return atoi(result);
+};
 
 
 int tohex(int number){};
