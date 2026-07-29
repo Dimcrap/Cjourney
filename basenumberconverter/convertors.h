@@ -15,5 +15,5 @@ void insertnumarr(numarr * arr,int value);
 int tobinary(int number);
 int todecimal(int number);
 int tooctal(int number);
-int tohex(int number);
+int tohex(int number,char * result,int size);
 int definebase(int number);

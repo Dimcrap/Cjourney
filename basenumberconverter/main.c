@@ -14,5 +14,8 @@ printf("result of todecimal: %i \n",todec);
 int toOct=tooctal(115);
 printf("resutl of to octal toOct :%d\n",toOct);
 
+char res[4];
+int tohex(
+
 
 }

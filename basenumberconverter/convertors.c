@@ -98,8 +98,38 @@ int tooctal(int number){
 };
 
 
-int tohex(int number){};
+
+int tohex(int number,char * result,int size){
+
+	int lastindx=0;
+	numarr arr=make_arr();
+	
+
+	while(number>=16){
+		insertnumarr(&arr,number%16);
+		lastindx++;
+		number/=16;	
+		
+	}
+
+	insertnumarr(&arr,number);
+	
+	if((++lastindx)+1>size){
+		return -1;
+	}
+
+	for(int i=0;i<size;i++){
+		result[i]=arr.numbers[lastindx-1-i];
+	}
+
+	return lastindx;
+	
+};
 
 
-int definebase(int number){};
+int definebase(int number){
+
+
+
+};
 
