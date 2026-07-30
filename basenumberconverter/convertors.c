@@ -118,16 +118,53 @@ int tohex(int number,char * result,int size){
 		return -1;
 	}
 
-	for(int i=0;i<size;i++){
-		result[i]=arr.numbers[lastindx-1-i];
+	for(int i=0;i<lastindx;i++)
+	{
+		
+		
+		if(arr.numbers[lastindx-1-i]<16&&
+		arr.numbers[lastindx-1-i]>9)
+		{
+			result[i]=arr.numbers[lastindx-1-i]+55;	
+		}else{
+
+			result[i]=arr.numbers[lastindx-1-i]+'0';
+		}
 	}
+	result[++lastindx]='\0';
+	
 
 	return lastindx;
 	
 };
 
+int compare(const  void * a,const  void * b){
+	int * v1=a;
+	int * v2=b;
+	return *v1-*v2;
+}
+
 
 int definebase(int number){
+
+int length=0,  temp=number,base,per;
+while(temp!=0){
+	temp/=10;
+	length++;
+}
+
+int arr[length];
+
+sprintf(arr,"%ld",number);
+arr[length]='\0';
+
+qsort(arr,sizeof(arr)/sizeof(arr[0]),sizeof(arr[0]),compare);
+
+for(int i=0;i<length;i++){
+	printf("%d",arr[i]);
+}
+printf("\n");
+//if(arr[len
 
 
 

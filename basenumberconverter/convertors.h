@@ -17,3 +17,5 @@ int todecimal(int number);
 int tooctal(int number);
 int tohex(int number,char * result,int size);
 int definebase(int number);
+int compare(const void * a,const void * b);
+void splitnumdigits(int *numarray,int arrsize,int number); 
