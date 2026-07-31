@@ -4,7 +4,6 @@
 
 int main(){
 
-definebase(1234);
-
+interface();
 
 }

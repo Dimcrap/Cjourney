@@ -138,10 +138,33 @@ int tohex(int number,char * result,int size){
 	
 };
 
-int compare(const  void * a,const  void * b){
+
+int countdigits(int number){
+		int count=0;
+
+	while(number>0){
+		count++;
+		number/=10;
+	//	printf("number is changed to :%d\n",number);
+	}
+	printf("count calculated: %d\n",count);
+	return count;
+}
+
+
+/*
+int compare(void * a,void * b){
 	int * v1=a;
 	int * v2=b;
 	return *v1-*v2;
+}
+
+
+void fillnumdigits(int * numarr,int length,int number){
+	for(int i = 0 ; i < length ; i++){
+		//numarr=number%10;
+		//numarr=
+	}	
 }
 
 
@@ -155,18 +178,66 @@ while(temp!=0){
 
 int arr[length];
 
-sprintf(arr,"%ld",number);
+//sprintf(arr,"%ld",number);
 arr[length]='\0';
 
 qsort(arr,sizeof(arr)/sizeof(arr[0]),sizeof(arr[0]),compare);
 
-for(int i=0;i<length;i++){
-	printf("%d",arr[i]);
-}
-printf("\n");
-//if(arr[len
+//if((arr[length-1])=<9&&arr[length-1]>
 
+printf("\n");
+//if(arr[len;
+return 0;
+//}
 
 
 };
+*/
+
+
+void printarr(char *arr){
+}
+
+
+
+void interface(){
+
+	int userinput,typetoC, intresult,charwrittenlength,allocsize;
+	char * charresult;
+	printf("======welcome to base number converter======\n\n");
+	
+	while(true){
+	printf("enter you number in decimal :\n");
+	scanf("%d",&userinput);
+
+	printf("enter the type you want to convert to (2,8,16):\n");
+	scanf("%d",&typetoC);
+
+	switch(typetoC)
+	{
+		case 16:
+			//printf("hello:=");
+			allocsize=(countdigits(userinput)+1)*sizeof(char);
+		        charresult=malloc(allocsize);
+			charwrittenlength=tohex(userinput,charresult,allocsize);
+			printf("result to hex is : %.*s \n",--charwrittenlength,charresult);
+			free(charresult);	
+			break;
+		case 8:
+			intresult=tooctal(userinput);
+			printf("result to octal is : %i\n",intresult);
+			break;
+		case 2:
+			intresult=tobinary(userinput);
+			printf("result to binary is : %i\n",intresult);
+			break;
+		 default:
+			printf("inputed base number isn't valid  \n");
+		}
+		
+	}
+}
+
+
+
 
