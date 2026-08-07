@@ -1,5 +1,7 @@
 #include "dbhandler.h"
 
+
+
 void do_exit(PGconn * conn,PGresult * res){
 	
 	fprintf(stderr,"%s\n",PQerrorMessage(conn));
@@ -8,7 +10,15 @@ void do_exit(PGconn * conn,PGresult * res){
 	PQfinish(conn);
 
 	exit(1);
+
 };
+
+
+void defineDB(char * username,char * dbname){
+	username=username;
+	dbname=dbname;
+};
+
 
 int checktable(PGconn * conn,char * tablename){
 
@@ -30,6 +40,45 @@ int checktable(PGconn * conn,char * tablename){
 };
 
 
-void createtables(PGconn *conn){
+//==========================================================================UNFINISHED
+void createtable(dbobject * db , char * tablename , map * mp){
+	
+	
+	PGresult *res=PQexec(conn,)
 
 };
+
+
+map initmap(){
+	map mp={
+		.margin=0;
+	};
+	return mp;
+}
+
+
+int getkeyindex(map * mapobj,char key[]){
+	for(int i=0; i< mapobj->margin ; i++){
+		if(strcmp(key,mapobj->key[i])==0){
+			return i;
+		}
+	}
+	return -1;
+};
+
+
+void insertmap(map * mapobj,char key[],char value[],valuetype type){
+	int index=getkeyindex(key);
+	
+	if(index==-1){
+			mapobj->key[mapobj->margin]=key;
+			mapobj->value[mapobj->margin]=value;
+			mapobj->margin++;
+			mapobj->type[mapobj->margin]=type;
+	}else{
+		mapobj->value[index]->=value;
+		mapobj->type[index]=type;
+	};
+
+};
+
