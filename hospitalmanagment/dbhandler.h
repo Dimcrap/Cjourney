@@ -3,8 +3,8 @@
 
 #define MAX_SIZE 100
 
-extern const char * username=NULL;
-extern const char * dbname=NULL;
+const char * username=NULL;
+const char * dbname=NULL;
 
 typedef struct{
 	PGconn * conn;
@@ -16,24 +16,23 @@ typedef struct{
 extern dbobject db;//===================need controllls
 
 enum valuetype{
-	int,
+	intger,
 	varchar,
 	date
-}
+};
 
 typedef struct{
-char key[MAX_SIZE];
-char value[MAX_SIZE];
+char name[MAX_SIZE][100];
 int type[MAX_SIZE];
 int margin;
-}map;
-map initmap();
+}sqlhelpmap;
+sqlhelpmap initmap();
 int getkeyindex(char key[]);
-void insertmap(map * mapobj,char key[],char value[],valuetype type);
+void insertmap(sqlhelpmap * mapobj,char name[],valuetype type);
+void makeline(char * buffer,char name,valuetype);
 
 
-
-void createtable(dbobject * db,map * mapobj);
+void createtable(dbobject * db,sqlhelpmap * mapobj);
 void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
 void defineDB(char * username,char * dbname);
