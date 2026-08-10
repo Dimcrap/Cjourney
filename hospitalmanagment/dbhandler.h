@@ -1,25 +1,27 @@
 #include <stdlib.h>
 #include <libpq-fe.h>
+#include <string.h>
+
 
 #define MAX_SIZE 100
 
-const char * username=NULL;
-const char * dbname=NULL;
 
 typedef struct{
 	PGconn * conn;
 	int tablecounts;
-	int reservedtables;
-	int freetables;
+	//int reservedtables;
 }dbobject;
+dbobject initdatabase(char username[],char dbname[]);
 
-extern dbobject db;//===================need controllls
 
 enum valuetype{
 	intger,
 	varchar,
 	date
 };
+char *getstrtype(enum valuetype type);
+
+
 
 typedef struct{
 char name[MAX_SIZE][100];
@@ -27,19 +29,16 @@ int type[MAX_SIZE];
 int margin;
 }sqlhelpmap;
 sqlhelpmap initmap();
-int getkeyindex(char key[]);
-void insertmap(sqlhelpmap * mapobj,char name[],valuetype type);
-void makeline(char * buffer,char name,valuetype);
+int getkeyindex(sqlhelpmap * mapobj,char key[]);
+void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type);
 
 
-void createtable(dbobject * db,sqlhelpmap * mapobj);
+
+void createtable(dbobject * db,sqlhelpmap * mapobj,char * tablename);
 void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
-void defineDB(char * username,char * dbname);
+void definetablevalues(sqlhelpmap * m_map);
 void insertdb();
-void definetablevalues();
-
-
 
 
 /*

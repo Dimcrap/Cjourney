@@ -1,5 +1,8 @@
 #include "dbhandler.h"
+#include <string.h>
+#include <libpq-fe.h>
 #include <stdio.h>
+
 
 
 
@@ -15,10 +18,33 @@ void do_exit(PGconn * conn,PGresult * res){
 };
 
 
-void defineDB(char * username,char * dbname){
-	username=username;
-	dbname=dbname;
+
+dbobject initdatabase(char username[],char dbname[]){
+	
+	char info[64];
+	snprintf(info, sizeof(info), "user=%s dbname=%s",username,dbname);
+	dbobject db={
+		.conn=PQconnectdb(info)
+	};
+
+	PGresult * res=PQexec(db.conn,"SELECT count(*) FROM information_schema.tables " 
+							"WHERE table_schema NOT IN ('information_schema', 'pg_catalog');");
+	if(PQresultStatus(res) == PGRES_TUPLES_OK){
+		
+		if( PQntuples(res) > 0 ){
+		char * count_str = PQgetvalue(res, 0, 0);
+		printf("count result in intitdatabasee: %s \n",count_str);
+		 db.tablecounts=atoi(count_str);			
+		}
+
+	}else{
+		fprintf(stderr, "Query failed : %s",PQerrorMessage(db.conn));	
+	}
+
+	
+	return db;
 };
+
 
 
 int checktable(PGconn * conn,char * tablename){
@@ -41,21 +67,28 @@ int checktable(PGconn * conn,char * tablename){
 };
 
 
-//==========================================================================UNFINISHED
-void createtable(dbobject * db , char * tablename , sqlhelpmap * mp){
+
+void createtable(dbobject * db,sqlhelpmap * mapobj , char * tablename){
 	
 	char sql[256] ;
 	int offset=0;
 
 	offset+=snprintf(sql,sizeof(sql), "CREATE TABLE %s (", tablename);
 
-	for(int i=0 ; i < mp->margin ; i++ ){
-		mp->value,mp->type,mp->
-		;
+	char line[64];
+	for(int i=0 ; i < mapobj->margin ; i++ ){
+		offset+=snprintf(sql+offset, sizeof(sql)-offset, "%s %s"  ,
+		mapobj->name[i],getstrtype(mapobj->type[i]));
+		
 	}
-	PGresult *res=PQexec(conn,)
-
+	snprintf(sql+offset, sizeof(sql)-offset,"%s", " );");
+	PGresult *res=PQexec(db->conn,sql);
+	if(PQresultStatus(res)!= PGRES_COMMAND_OK){
+	do_exit(db->conn,res);	
+}
+	db->tablecounts++;
 };
+
 
 
 sqlhelpmap initmap(){
@@ -67,7 +100,7 @@ sqlhelpmap initmap(){
 
 
 int getkeyindex(sqlhelpmap * mapobj,char key[]){
-	for(int i=0; i< mapobj->margin ; i++){
+	for( int i=0 ; i< mapobj->margin ; i++ ){
 		if(strcmp(key,mapobj->name[i])==0){
 			return i;
 		}
@@ -76,18 +109,46 @@ int getkeyindex(sqlhelpmap * mapobj,char key[]){
 };
 
 
-void insertmap(sqlhelpmap * mapobj,char name[],valuetype type){
-	int index=getkeyindex(name);
+void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type){
+	int index=getkeyindex(mapobj,name);
 	
 	if(index==-1){
-			mapobj->name[mapobj->margin]=name;
-			mapobj->type[mapobj->margin]=type;
+			strcpy(mapobj->name[mapobj->margin],name);
+			mapobj->type[mapobj->margin] = type;
 			mapobj->margin++;
 
 	}else{
-		mapobj->name[index]=name;
+
+		strcpy(mapobj->name[index],name);
+		mapobj->type[mapobj->margin] = type;
 		mapobj->type[index]=type;
+
 	};
 
+};
+
+
+char *getstrtype(enum valuetype type){
+	return (type==0)?"INT":(type==2)?"VARCHAR(64)":"DATE";
+};
+
+
+void definetablevalues(sqlhelpmap * m_map){
+
+	char input[64];
+	int vtype=0;
+
+	while(strcmp(input,"/q")!=0){
+		printf("\ninsert column name (enter /q to exit): ");
+		scanf("%s", input);
+
+		if(strcmp(input,"/q")!=0){
+			printf("enter column data type 1-Integer \n2-Varchar \n3-Date:");
+			scanf("%d",vtype);
+			insertmap(m_map, input,vtype);
+		};
+
+	};
+    
 };
 
