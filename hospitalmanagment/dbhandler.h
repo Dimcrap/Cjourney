@@ -38,8 +38,10 @@ void createtable(dbobject * db,sqlhelpmap * mapobj,char * tablename);
 void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
 void definetablevalues(sqlhelpmap * m_map);
-void insertdb();
 
+
+void insertdata(dbobject * db,char tablename[]);
+char * defineinsertval(char table[]);
 
 /*
 int main(){	

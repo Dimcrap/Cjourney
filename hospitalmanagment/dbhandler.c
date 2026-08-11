@@ -56,7 +56,6 @@ int checktable(PGconn * conn,char * tablename){
 
 	if(PQresultStatus(res)!= PGRES_TUPLES_OK){
 	do_exit(conn,res);
-
 	}
 
 	char * exists=PQgetvalue(res,0,0);
@@ -65,7 +64,6 @@ int checktable(PGconn * conn,char * tablename){
 	return (*exists=='t')?1:0;
 	
 };
-
 
 
 void createtable(dbobject * db,sqlhelpmap * mapobj , char * tablename){
@@ -77,8 +75,13 @@ void createtable(dbobject * db,sqlhelpmap * mapobj , char * tablename){
 
 	char line[64];
 	for(int i=0 ; i < mapobj->margin ; i++ ){
-		offset+=snprintf(sql+offset, sizeof(sql)-offset, "%s %s"  ,
-		mapobj->name[i],getstrtype(mapobj->type[i]));
+		if(i==(mapobj->margin)-1){
+			offset+=snprintf(sql+offset, sizeof(sql)-offset, " %s %s "  ,
+			mapobj->name[i],getstrtype(mapobj->type[i]));	
+		}else{
+			offset+=snprintf(sql+offset, sizeof(sql)-offset, " %s %s ,"  ,
+			mapobj->name[i],getstrtype(mapobj->type[i]));
+		}
 		
 	}
 	snprintf(sql+offset, sizeof(sql)-offset,"%s", " );");
@@ -88,7 +91,6 @@ void createtable(dbobject * db,sqlhelpmap * mapobj , char * tablename){
 }
 	db->tablecounts++;
 };
-
 
 
 sqlhelpmap initmap(){
@@ -113,7 +115,7 @@ void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type){
 	int index=getkeyindex(mapobj,name);
 	
 	if(index==-1){
-			strcpy(mapobj->name[mapobj->margin],name);
+			strcpy(mapobj->name[mapobj -> margin],name);
 			mapobj->type[mapobj->margin] = type;
 			mapobj->margin++;
 
@@ -143,12 +145,47 @@ void definetablevalues(sqlhelpmap * m_map){
 		scanf("%s", input);
 
 		if(strcmp(input,"/q")!=0){
-			printf("enter column data type 1-Integer \n2-Varchar \n3-Date:");
-			scanf("%d",vtype);
-			insertmap(m_map, input,vtype);
+			printf("enter column data type \n1-Integer \n2-Varchar \n3-Date:\n");
+			scanf("%d",&vtype);
+			if(vtype>3 || vtype<1)
+			{
+				printf("unvalid data type inputed\n");
+				
+			}else{
+				insertmap(m_map, input,vtype-1);
+			};
 		};
 
 	};
     
 };
 
+
+char * defineinsertval(char table[]){
+	char result[128];
+	int offset=0,count=0;
+	char input[64];
+	
+
+	offset+=snprintf(result, sizeof(result),"INSERT INTO %s VALUES(",table);
+
+	while(strcmp(input,"/q")!=0){
+
+		printf("enter %d th value :\n",count++);
+		scanf("");
+	}
+
+	return "something ";
+};
+
+
+void insertdata(dbobject *db,char table[]){
+	if(!checktable(db->conn, table)){
+		printf("table %s not exists\n",table);
+	}else{
+		char * sql = defineinsertsql(char table[]);
+
+	};
+
+
+};
