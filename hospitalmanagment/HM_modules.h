@@ -2,13 +2,13 @@
 #include "dbhandler.h"
 
 
-dbobject * db;
+//dbobject  db;
 
 enum bedrank{
     noserviced,
     midservice,
     fullservice
-}
+};
 
 
 struct bed{

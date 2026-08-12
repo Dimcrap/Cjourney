@@ -20,9 +20,10 @@ enum valuetype{
 	date
 };
 char *getstrtype(enum valuetype type);
+enum valuetype getenumtype(char * str);
 
 
-
+/*====================================MAP====================================*/
 typedef struct{
 char name[MAX_SIZE][100];
 int type[MAX_SIZE];
@@ -31,7 +32,8 @@ int margin;
 sqlhelpmap initmap();
 int getkeyindex(sqlhelpmap * mapobj,char key[]);
 void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type);
-
+sqlhelpmap gettablecolumns(dbobject * db , char table[]);
+/*=====================================================================================================*/
 
 
 void createtable(dbobject * db,sqlhelpmap * mapobj,char * tablename);
@@ -41,7 +43,8 @@ void definetablevalues(sqlhelpmap * m_map);
 
 
 void insertdata(dbobject * db,char tablename[]);
-char * defineinsertval(char table[]);
+char * defineinsertval(dbobject * db,char table[]);	
+
 
 /*
 int main(){	
