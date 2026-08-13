@@ -2,7 +2,6 @@
 #include "dbhandler.h"
 
 
-//dbobject  db;
 
 enum bedrank{
     noserviced,
@@ -20,6 +19,7 @@ struct bed{
 
 struct patient{};
 
+void indexhospitals();
 void interface();
 void reservation();
 void documentary();

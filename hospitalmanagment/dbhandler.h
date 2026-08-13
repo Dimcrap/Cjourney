@@ -43,7 +43,7 @@ void definetablevalues(sqlhelpmap * m_map);
 
 
 void insertdata(dbobject * db,char tablename[]);
-char * defineinsertval(dbobject * db,char table[]);	
+char * defineinsertsql(dbobject * db,char table[]);	
 
 
 /*

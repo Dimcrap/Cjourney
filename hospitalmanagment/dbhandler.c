@@ -1,5 +1,4 @@
 #include "dbhandler.h"
-#include <cstddef>
 #include <stdlib.h>
 #include <string.h>
 #include <libpq-fe.h>
@@ -46,7 +45,6 @@ dbobject initdatabase(char username[],char dbname[]){
 	
 	return db;
 };
-
 
 
 int checktable(PGconn * conn,char * tablename){
@@ -140,11 +138,11 @@ char *getstrtype(enum valuetype type){
 
 
 enum valuetype getenumtype(char * str){
-	return  (strcmp(str, "date")==0 ) ? 2:(strcmp(str, "integer"))? 0:1 ;
+	return  (strcmp(str, "date")==2 ) ? 2:(strcmp(str, "integer")==0)? 0:1 ;
 };
 
 
-sqlhelpmap   gettablecolumns(dbobject * db , char table[]){
+sqlhelpmap  gettablecolumns(dbobject * db , char table[]){
 	char sql[96]="SELECT column_name,data_type FROM information_schema.columns WHERE table_name=";
 	snprintf(sql+78, sizeof(sql)-87, "'%s' ;", table);
 	sqlhelpmap  resultmap=initmap();
@@ -157,7 +155,8 @@ sqlhelpmap   gettablecolumns(dbobject * db , char table[]){
 		int row=PQntuples(res);
 		int col=PQnfields(res);
 
-		if(row<=0){
+		if(row<=0)
+		{
 			printf("no table data found!\n");
 			return resultmap;
 		};
@@ -165,13 +164,15 @@ sqlhelpmap   gettablecolumns(dbobject * db , char table[]){
 
 		for(int i=0; i<row ; i++){
 			for(int k=0; k < col ; k+=2){
-				
+
 				insertmap(&resultmap, PQgetvalue(res, i, k), 
-				getenumtype(PQgetvalue(res, i, k+1)));
+				getenumtype(PQgetvalue(res, i, k+1) ) );
 
 			};
-
 		};
+
+		
+
 			
 	}else{
 		fprintf(stderr, "Query failed : %s ", PQerrorMessage(db->conn));
@@ -208,38 +209,56 @@ void definetablevalues(sqlhelpmap * m_map){
 };
 
 
-char * defineinsertval(dbobject * db,char table[]){
-	char result[128];
+char * defineinsertsql(dbobject * db,char table[]){
+	static char result[128];
 	int offset=0,intinput;
 	char input[64];
 
 
-
-	offset+=snprintf(result, sizeof(result),"INSERT INTO %s VALUES(",table);
+	offset+=snprintf(result, sizeof(result),"INSERT INTO %s (",table);
 	sqlhelpmap tableinfo=gettablecolumns(db,table);
 	
+	
+	for( int i= 0 ; i<tableinfo.margin ; i++ ){
+		if(i==(tableinfo.margin-1)){
+			offset+=snprintf(result+offset, sizeof(result)-offset,
+		 "%s) VALUES(", tableinfo.name[i]);	
+		}else{
+			offset+=snprintf(result+offset, sizeof(result)-offset,
+			 "%s, ", tableinfo.name[i]);
+		}
+	}
+
 
 	for (int i=0 ; i < tableinfo.margin ; i++ )
 	{	
-
-		printf("row %d structure : name:%s type:%s \n\nenter value for it :\n",
-			i,tableinfo.name[i],getstrtype( tableinfo.type[i]));
+		printf("row %d structure = name:%s type:%s \n\nenter value for it :\n",
+			i,tableinfo.name[i],getstrtype( tableinfo.type[i]) );
 		//(strcmp( getstrtype(tableinfo.type[i]),"INT")==0)? scanf("");
 			(  strcmp(getstrtype(tableinfo.type[i]),"INT")==0)?
 			scanf("%d",&intinput):scanf("%s",input);
 
 			if(strcmp(getstrtype(tableinfo.type[i]),"INT")!=0){
-				offset+=snprintf(result+offset, sizeof(result)-offset,
-				"%s",input);
+				if(i==tableinfo.margin-1){
+					offset+=snprintf(result+offset, sizeof(result)-offset,
+					"'%s'",input);
+				}else{
+					offset+=snprintf(result+offset, sizeof(result)-offset,
+					"'%s' , ",input);
+				};
 			}else{
-				offset+=snprintf(result+offset, sizeof(result)-offset,
-				"%d",intinput);
+				if(i==tableinfo.margin){
+					offset+=snprintf(result+offset, sizeof(result)-offset,
+					"%d ",intinput);
+				}else{
+					offset+=snprintf(result+offset, sizeof(result)-offset,
+					"%d , ",intinput);
+				};
 			}
-	
 	};
 
-	//returning result
-	return "re";
+	offset+=snprintf(result+offset, sizeof(result)-offset,");");
+	return result;
 };
 
 
@@ -247,11 +266,14 @@ void insertdata(dbobject *db,char table[]){
 	if(!checktable(db->conn, table)){
 		printf("table %s not exists\n",table);
 	}else{
-
-		//char * sql = defineinsertsql(char table[]);
-		
+		char  *sql = defineinsertsql(db, table);
+		PGresult *res =PQexec(db->conn, sql);
+		if(PQresultStatus(res)!=PGRES_COMMAND_OK){
+			do_exit(db->conn, res);
+		};	
 	};
 
-
 };
+
+
 
