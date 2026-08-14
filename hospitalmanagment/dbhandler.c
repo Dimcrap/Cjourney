@@ -19,7 +19,6 @@ void do_exit(PGconn * conn,PGresult * res){
 };
 
 
-
 dbobject initdatabase(char username[],char dbname[]){
 	
 	char info[64];
@@ -111,7 +110,6 @@ int getkeyindex(sqlhelpmap * mapobj,char key[]){
 };
 
 
-
 void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type){
 	int index=getkeyindex(mapobj,name);
 	
@@ -131,19 +129,19 @@ void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type){
 };
 
 
-
 char *getstrtype(enum valuetype type){
-	return (type==0)?"INT":(type==1)?"VARCHAR(64)":"DATE";
+	return (type==0)?"INT":(type==1)?"VARCHAR(64)":(type==2)?"DATE":"boolean";
 };
 
 
 enum valuetype getenumtype(char * str){
-	return  (strcmp(str, "date")==2 ) ? 2:(strcmp(str, "integer")==0)? 0:1 ;
+	return   (strcmp(str, "integer" ) == 0 )? 0: 
+	(strcmp(str, "boolean"))?3: strcmp(str, "date")==2 ? 2 : 1 ;
 };
 
 
 sqlhelpmap  gettablecolumns(dbobject * db , char table[]){
-	char sql[96]="SELECT column_name,data_type FROM information_schema.columns WHERE table_name=";
+	char sql[128]="SELECT column_name,data_type FROM information_schema.columns WHERE table_name=";
 	snprintf(sql+78, sizeof(sql)-87, "'%s' ;", table);
 	sqlhelpmap  resultmap=initmap();
 	
@@ -170,8 +168,7 @@ sqlhelpmap  gettablecolumns(dbobject * db , char table[]){
 
 			};
 		};
-
-		
+	
 
 			
 	}else{
@@ -210,7 +207,7 @@ void definetablevalues(sqlhelpmap * m_map){
 
 
 char * defineinsertsql(dbobject * db,char table[]){
-	static char result[128];
+	static char result[256];
 	int offset=0,intinput;
 	char input[64];
 
@@ -276,4 +273,66 @@ void insertdata(dbobject *db,char table[]){
 };
 
 
+void insert_data_pair(datapair * pairobj,char key[],char value[]){
+	strcpy(pairobj->key[pairobj->indx],key);
+	strcpy(pairobj->key[pairobj->indx],value);
+	pairobj->indx++;
+};
+
+
+int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]){
+	char * sql="SELECT column_name FROM information_schema.columns WHERE table_name="
+	"'hospital'   ORDER BY ordinal_position ASC";
+
+	PGresult * res=PQexec(db->conn, sql);
+
+	if(PQresultStatus(res)==PGRES_TUPLES_OK){
+
+		int row=PQntuples(res);
+		if(row>0){
+			for (int i = 0 ; i <= row ; i++){
+				strcpy(buff[i],PQgetvalue(res, i, 0));
+			};
+		};
+
+		return row;
+	}else{
+		printf("\n didn't found any table data!\n");
+		PQclear(res);
+		return -1;
+	}
+
+
+};
+
+
+datapair get_table_data(dbobject * db,char tablename[]){
+	datapair pair={.indx=0};
+	char columns[20][MAX_SIZE];
+	int cols=getcolnames(db,tablename,columns);
+
+	char sql[32];
+	snprintf(sql,sizeof(sql),"SELECT * FROM %s ;",tablename);
+
+	PGresult * res=PQexec(db->conn, sql);
+
+	if(PQresultStatus(res)==PGRES_TUPLES_OK){
+		int row=PQntuples(res);
+			if(row>0){
+
+				for(int i =0 ; i < row ; i++){
+					for(int j=0 ; j < cols ; j++)
+					insert_data_pair(&pair, columns[j],
+				PQgetvalue(res, i, j));
+				}
+			}else{
+				printf("\ntable is empty\n");
+				return pair;
+		}
+	}else{
+		printf("\ncould't find out table with info named as :%s\n",tablename);
+		PQclear(res);
+	};
+	return pair;
+}
 

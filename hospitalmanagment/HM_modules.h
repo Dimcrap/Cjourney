@@ -2,6 +2,9 @@
 #include "dbhandler.h"
 
 
+extern dbobject db;
+
+
 
 enum bedrank{
     noserviced,
@@ -19,12 +22,12 @@ struct bed{
 
 struct patient{};
 
+void initHM();
 void indexhospitals();
 void interface();
 void reservation();
 void documentary();
 void  listbeds();
-
 
 //reserv_bed()
 //show_patientinfo

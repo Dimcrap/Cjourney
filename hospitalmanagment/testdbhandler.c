@@ -11,6 +11,8 @@ int main(){
     dbobject db = initdatabase("hospital_m", "hospital_m");
     //printf("database have %i tablecounts",db.tablecounts);
     
+    insertdata(&db, "hospital");
+
     /*
     sqlhelpmap mp=gettablecolumns(&db, "prof");
     definetablevalues(&mp);
@@ -28,7 +30,7 @@ int main(){
     //insertdata(&db, "prof");
 
 
-    printf("something is not working");
+    
     PQfinish(db.conn);
 
 }

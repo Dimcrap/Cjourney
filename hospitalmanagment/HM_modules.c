@@ -1,6 +1,14 @@
 #include "HM_modules.h"
 
 
+
+
+void initHM(){
+	db=initdatabase("hospital_m", "hospital");
+};
+
+
+
 void interface(){
 	
 	int input;
@@ -24,6 +32,7 @@ void interface(){
 
 
 void indexhospitals(){
+	
 	//get all hosptials data
 	//show the list of them 
 };

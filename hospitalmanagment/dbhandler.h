@@ -1,9 +1,13 @@
+#pragma once
+
 #include <stdlib.h>
 #include <libpq-fe.h>
 #include <string.h>
 
 
 #define MAX_SIZE 100
+
+
 
 
 typedef struct{
@@ -14,10 +18,23 @@ typedef struct{
 dbobject initdatabase(char username[],char dbname[]);
 
 
+/*===========database data pair============*/
+typedef struct{
+	char key[20][MAX_SIZE];
+	char value[20][MAX_SIZE];
+	int indx;
+} datapair;
+void insert_data_pair(datapair * pairobj,char key[],char value[]);
+datapair get_table_data(dbobject * db,char tablename[]);
+int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]);
+
+
+
 enum valuetype{
 	intger,
 	varchar,
-	date
+	date,
+	boolean
 };
 char *getstrtype(enum valuetype type);
 enum valuetype getenumtype(char * str);
@@ -36,14 +53,19 @@ sqlhelpmap gettablecolumns(dbobject * db , char table[]);
 /*=====================================================================================================*/
 
 
+
+/*======================== SEEK INTO && MODIFY  DATABASE ================================*/
 void createtable(dbobject * db,sqlhelpmap * mapobj,char * tablename);
 void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
 void definetablevalues(sqlhelpmap * m_map);
+/*=============================================================================*/
+
 
 
 void insertdata(dbobject * db,char tablename[]);
 char * defineinsertsql(dbobject * db,char table[]);	
+
 
 
 /*

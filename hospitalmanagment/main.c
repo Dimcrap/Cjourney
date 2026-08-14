@@ -1,12 +1,8 @@
 #include "HM_modules.h"
 #include <libpq-fe.h>
-#include <stdlib.h>
 #include <stdio.h>
 
-void do_exit(PGconn *conn){
-	PQfinish(conn);
-	exit(1);
-};
+
 
 
 int main(){
@@ -17,7 +13,7 @@ int main(){
 		
 		fprintf(stderr, "Connection to database failed : %s\n",
 			PQerrorMessage(conn));
-		do_exit(conn);
+		//do_exit(&conn);
 	}
 
 		
