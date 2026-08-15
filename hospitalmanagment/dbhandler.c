@@ -130,13 +130,13 @@ void insertmap(sqlhelpmap * mapobj,char name[],enum valuetype type){
 
 
 char *getstrtype(enum valuetype type){
-	return (type==0)?"INT":(type==1)?"VARCHAR(64)":(type==2)?"DATE":"boolean";
+	return (type==0)?"INT":(type==1)?"VARCHAR(64)":(type==2)?"DATE":"BOOl";
 };
 
 
 enum valuetype getenumtype(char * str){
 	return   (strcmp(str, "integer" ) == 0 )? 0: 
-	(strcmp(str, "boolean"))?3: strcmp(str, "date")==2 ? 2 : 1 ;
+	(strcmp(str, "boolean")==0)?3: strcmp(str, "date")==0 ? 2 : 1 ;
 };
 
 
@@ -162,7 +162,6 @@ sqlhelpmap  gettablecolumns(dbobject * db , char table[]){
 
 		for(int i=0; i<row ; i++){
 			for(int k=0; k < col ; k+=2){
-
 				insertmap(&resultmap, PQgetvalue(res, i, k), 
 				getenumtype(PQgetvalue(res, i, k+1) ) );
 
@@ -170,9 +169,8 @@ sqlhelpmap  gettablecolumns(dbobject * db , char table[]){
 		};
 	
 
-			
 	}else{
-		fprintf(stderr, "Query failed : %s ", PQerrorMessage(db->conn));
+		fprintf(stderr, "Query failed : %s \n", PQerrorMessage(db->conn));
 	};
 
 	PQclear(res);
@@ -214,9 +212,10 @@ char * defineinsertsql(dbobject * db,char table[]){
 
 	offset+=snprintf(result, sizeof(result),"INSERT INTO %s (",table);
 	sqlhelpmap tableinfo=gettablecolumns(db,table);
-	
+
 	
 	for( int i= 0 ; i<tableinfo.margin ; i++ ){
+		printf(" type value of %s : %d \n",tableinfo.name[i],tableinfo.type[i]);
 		if(i==(tableinfo.margin-1)){
 			offset+=snprintf(result+offset, sizeof(result)-offset,
 		 "%s) VALUES(", tableinfo.name[i]);	
@@ -229,7 +228,7 @@ char * defineinsertsql(dbobject * db,char table[]){
 
 	for (int i=0 ; i < tableinfo.margin ; i++ )
 	{	
-		printf("row %d structure = name:%s type:%s \n\nenter value for it :\n",
+		printf("row %d structure => name:%s type:%s \n\nenter value for it :\n",
 			i,tableinfo.name[i],getstrtype( tableinfo.type[i]) );
 		//(strcmp( getstrtype(tableinfo.type[i]),"INT")==0)? scanf("");
 			(  strcmp(getstrtype(tableinfo.type[i]),"INT")==0)?
@@ -268,21 +267,23 @@ void insertdata(dbobject *db,char table[]){
 		if(PQresultStatus(res)!=PGRES_COMMAND_OK){
 			do_exit(db->conn, res);
 		};	
+		printf("data inserted completely!\n");
 	};
+
 
 };
 
 
-void insert_data_pair(datapair * pairobj,char key[],char value[]){
+void insert_data_pair(datapair * pairobj , char key[] , char value[] ){
 	strcpy(pairobj->key[pairobj->indx],key);
-	strcpy(pairobj->key[pairobj->indx],value);
+	strcpy(pairobj->value[pairobj->indx],value);
 	pairobj->indx++;
 };
 
 
-int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]){
+int getcolnames( dbobject * db , char tablename[] , char buff[20][MAX_SIZE]){
 	char * sql="SELECT column_name FROM information_schema.columns WHERE table_name="
-	"'hospital'   ORDER BY ordinal_position ASC";
+	"'hospital' ORDER BY ordinal_position ASC";
 
 	PGresult * res=PQexec(db->conn, sql);
 
@@ -290,7 +291,8 @@ int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]){
 
 		int row=PQntuples(res);
 		if(row>0){
-			for (int i = 0 ; i <= row ; i++){
+			for (int i = 0 ; i < row ; i++){
+				//printf("assingin row%d :%s",i,PQgetvalue(res, i, 0));
 				strcpy(buff[i],PQgetvalue(res, i, 0));
 			};
 		};
@@ -302,14 +304,14 @@ int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]){
 		return -1;
 	}
 
-
 };
 
 
 datapair get_table_data(dbobject * db,char tablename[]){
 	datapair pair={.indx=0};
-	char columns[20][MAX_SIZE];
+	char columns[MIN_LENGTH][MAX_SIZE];
 	int cols=getcolnames(db,tablename,columns);
+	printf("");
 
 	char sql[32];
 	snprintf(sql,sizeof(sql),"SELECT * FROM %s ;",tablename);
@@ -318,12 +320,13 @@ datapair get_table_data(dbobject * db,char tablename[]){
 
 	if(PQresultStatus(res)==PGRES_TUPLES_OK){
 		int row=PQntuples(res);
-			if(row>0){
+			if( row > 0 ){
 
-				for(int i =0 ; i < row ; i++){
-					for(int j=0 ; j < cols ; j++)
-					insert_data_pair(&pair, columns[j],
-				PQgetvalue(res, i, j));
+				for(int i = 0 ; i < row ; i++){
+					for(int j=0 ; j < cols ; j++){
+						insert_data_pair(&pair, columns[j],
+							PQgetvalue(res, i, j));
+					};
 				}
 			}else{
 				printf("\ntable is empty\n");
@@ -335,4 +338,5 @@ datapair get_table_data(dbobject * db,char tablename[]){
 	};
 	return pair;
 }
+
 

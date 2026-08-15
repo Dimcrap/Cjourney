@@ -1,5 +1,4 @@
 #include "dbhandler.h"
-#include <stdio.h>
 #include <libpq-fe.h>
 
 
@@ -11,29 +10,19 @@ int main(){
     dbobject db = initdatabase("hospital_m", "hospital_m");
     //printf("database have %i tablecounts",db.tablecounts);
     
-    insertdata(&db, "hospital");
-
-    /*
-    sqlhelpmap mp=gettablecolumns(&db, "prof");
-    definetablevalues(&mp);
-
-    
-
-    printf("enter table name : \n");
-    scanf("%s",tablename);
-
-    createtable(&db, &mp, tablename);*/
-    /*for( int i=0 ; i < mp.margin ; i++ ){
-        printf("value name is  %s type is %s \n", mp.name[i],getstrtype( mp.type[i]));
-    };*/
-
-    //insertdata(&db, "prof");
+    //insertdata(&db, "hospital");
 
 
+    datapair data= get_table_data(&db, "hospital");
+
+    for(int i =0 ; i < data.indx ; i++){
+        printf("key : %s  value:%s \n",data.key[i],data.value[i]);
+    }
     
     PQfinish(db.conn);
 
 }
+
 
 
 /*

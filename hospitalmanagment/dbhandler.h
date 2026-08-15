@@ -6,8 +6,7 @@
 
 
 #define MAX_SIZE 100
-
-
+#define MIN_LENGTH 50
 
 
 typedef struct{
@@ -20,8 +19,8 @@ dbobject initdatabase(char username[],char dbname[]);
 
 /*===========database data pair============*/
 typedef struct{
-	char key[20][MAX_SIZE];
-	char value[20][MAX_SIZE];
+	char key[50][MAX_SIZE];
+	char value[50][MAX_SIZE];
 	int indx;
 } datapair;
 void insert_data_pair(datapair * pairobj,char key[],char value[]);
@@ -60,7 +59,6 @@ void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
 void definetablevalues(sqlhelpmap * m_map);
 /*=============================================================================*/
-
 
 
 void insertdata(dbobject * db,char tablename[]);
