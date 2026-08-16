@@ -12,7 +12,7 @@
 typedef struct{
 	PGconn * conn;
 	int tablecounts;
-	//int reservedtables;
+	int hospitalscount;
 }dbobject;
 dbobject initdatabase(char username[],char dbname[]);
 

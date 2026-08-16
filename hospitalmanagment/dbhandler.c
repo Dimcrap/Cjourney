@@ -33,7 +33,7 @@ dbobject initdatabase(char username[],char dbname[]){
 		
 		if( PQntuples(res) > 0 ){
 		char * count_str = PQgetvalue(res, 0, 0);
-		//rintf("count result in intitdatabasee: %s \n",count_str);
+		//printf("count result in intitdatabasee: %s \n",count_str);
 		 db.tablecounts=atoi(count_str);			
 		}
 

@@ -3,21 +3,9 @@
 
 
 extern dbobject db;
+extern char hospitals[10][MAX_SIZE];
 
 
-
-enum bedrank{
-    noserviced,
-    midservice,
-    fullservice
-};
-
-
-struct bed{
-    enum bedrank rank;
-    int price; 
-    int state;
-};
 
 
 struct patient{};
