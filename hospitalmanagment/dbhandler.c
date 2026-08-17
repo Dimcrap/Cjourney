@@ -254,14 +254,12 @@ char * defineinsertsql(dbobject * db,char table[]){
 	};
 
 	offset+=snprintf(result+offset, sizeof(result)-offset,");");
+
 	return result;
+		
 };
 
-
-void insertdata(dbobject *db,char table[]){
-	if(!checktable(db->conn, table)){
-		printf("table %s not exists\n",table);
-	}else{
+void insertdata(dbobject *db,char table[]){	if(!checktable(db->conn, table)){		printf("table %s not exists\n",table);	}else{
 		char  *sql = defineinsertsql(db, table);
 		PGresult *res =PQexec(db->conn, sql);
 		if(PQresultStatus(res)!=PGRES_COMMAND_OK){
@@ -339,4 +337,153 @@ datapair get_table_data(dbobject * db,char tablename[]){
 	return pair;
 }
 
+
+int getlastrowid(PGconn * conn,char tablename[]){
+	char sql[64];
+	snprintf(sql, sizeof(sql), "SELECT * FROM %s"
+	" ORDER BY id DESC LIMIT 1 ;",tablename);
+
+	PGresult * res=PQexec(conn, sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK){
+		if(PQntuples(res)>0){
+			return atoi(PQgetvalue(res, 0, 0));
+		}else{
+			printf("no result founded int table %s\n",tablename);
+		};
+	}else{
+		fprintf(stderr, "error: %s",PQresultErrorMessage(res));
+	};
+
+	return -1;
+	
+};
+
+
+int getextant_bedrates(int * result , PGconn * conn , int hospitalid){
+	char sql[74];
+	int indx=0;
+
+	snprintf(sql,sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id = %d AND rate = 1 ;",hospitalid);
+
+	//printf("the row have values :%s",PQgetvalue(res, 0, 0));
+	PGresult * res= PQexec(conn,sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK && PQntuples(res)>0 ){
+		result[indx++]=1;
+	}else{
+		fprintf(stderr, "%s",PQresultErrorMessage(res));
+	}
+	
+	snprintf(sql,sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id = %d AND  rate = 2 ;",hospitalid);
+
+	res= PQexec(conn,sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK && PQntuples(res)>0 ){
+		result[indx++]=2;
+	}else{
+		fprintf(stderr, "%s",PQresultErrorMessage(res));
+	}
+
+	snprintf(sql,sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id = %d AND  rate = 3 ;",hospitalid);
+
+	res= PQexec(conn,sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK && PQntuples(res)>0 ){
+		result[indx++]=3;
+	}else{
+		fprintf(stderr, "%s",PQresultErrorMessage(res));
+	}
+
+	snprintf(sql,sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id = %d AND  rate = 4 ;",hospitalid);
+
+	res= PQexec(conn,sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK && PQntuples(res)>0 ){
+		result[indx++]=4;
+	}else{
+		fprintf(stderr, "%s",PQresultErrorMessage(res));
+	}
+
+	snprintf(sql,sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id = %d AND rate = 5 ;",hospitalid);
+
+	res= PQexec(conn,sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK && PQntuples(res)>0 ){
+		result[indx++]=5;
+	}else{
+		fprintf(stderr, "%s",PQresultErrorMessage(res));
+	}
+
+	PQclear(res);
+	return indx-1;
+};
+
+
+int definebedrate(PGconn * conn,int hospital){
+	int pickup;
+	int availbedrates[6];
+	
+	int avail_count=getextant_bedrates((int *) availbedrates,
+	conn, hospital);
+	
+	if(avail_count<=0){
+		printf("no bed available :%d\n",avail_count);
+	}
+
+	for ( int i=0 ; i <= avail_count ; i++ ){
+		if(i+1>avail_count){
+			printf("%d\n",availbedrates[i]);	
+		}else{
+			printf("%d",availbedrates[i]);
+		};
+	};
+		printf("pick rate for a bed of hospital :\n");
+		
+	scanf("%d",&pickup);
+	
+	while( pickup > avail_count || pickup <= 0 ){
+		printf("unvalid input \n");
+		for ( int i=0 ; i <= avail_count ; i++ ){
+		if(i+i>=avail_count){
+		printf("%d\n",availbedrates[i]);	
+		}else{
+			printf("%d ",availbedrates[i]);
+		
+		};
+		}
+		printf("\npick rate for a bed of hospital \n");
+		scanf("%d",&pickup);
+	};
+
+	
+	return pickup;
+};
+
+
+int selectbedby_id(PGconn * conn,int hospital_id,int rate){
+	char sql[75];
+	snprintf(sql, sizeof(sql), "SELECT * FROM bed WHERE inuse=FALSE AND "
+	"hospital_id=%d AND rate=%d LIMIT 1;",hospital_id,rate);
+	
+	PGresult * res = PQexec(conn, sql);
+	if(PQresultStatus(res)==PGRES_TUPLES_OK){
+		if(PQntuples(res)>0){
+			return atoi(PQgetvalue(res, 0, 0));
+		}else{
+			printf("didn't found any bed for seleceting!\n");
+		};	
+	}else {
+		fprintf(stderr, "error:%s\n",PQresultErrorMessage(res));
+	}
+	return -1;
+};
+
+
+char * gen_current_date(){
+        time_t now = time(NULL);
+        struct tm * t =localtime(&now);
+        static char res[16];
+        snprintf(res,sizeof(res),"%d-%d-%d",t->tm_year+1900,t->tm_mon+1,t->tm_mday);
+        return res;
+}
 

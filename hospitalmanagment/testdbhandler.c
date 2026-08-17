@@ -11,12 +11,15 @@ int main(){
     
     //insertdata(&db, "hospital");
 
-    datapair data= get_table_data(&db, "hospital");
+    /*datapair data= get_table_data(&db, "hospital");
 
     for(int i =0 ; i < data.indx ; i++){
         printf("key : %s  value:%s \n",data.key[i],data.value[i]);
-    };
+    };*/
+    int last=getlastrowid(db.conn, "bed");
     
+    printf("result :%d\n",last);
+
     PQfinish(db.conn);
 
 }

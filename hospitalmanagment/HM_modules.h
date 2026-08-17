@@ -2,13 +2,15 @@
 #include "dbhandler.h"
 
 
+
+
 extern dbobject db;
 extern char hospitals[10][MAX_SIZE];
 
 
 
-
 struct patient{};
+
 
 void initHM();
 void indexhospitals();

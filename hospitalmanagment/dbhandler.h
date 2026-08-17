@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <libpq-fe.h>
 #include <string.h>
-
+#include <time.h>
 
 #define MAX_SIZE 100
 #define MIN_LENGTH 50
@@ -13,6 +13,8 @@ typedef struct{
 	PGconn * conn;
 	int tablecounts;
 	int hospitalscount;
+	int lastpatient_id;
+	int lastbed_id;
 }dbobject;
 dbobject initdatabase(char username[],char dbname[]);
 
@@ -26,7 +28,7 @@ typedef struct{
 void insert_data_pair(datapair * pairobj,char key[],char value[]);
 datapair get_table_data(dbobject * db,char tablename[]);
 int getcolnames( dbobject * db , char tablename[],char buff[20][MAX_SIZE]);
-
+/*==================================================================*/
 
 
 enum valuetype{
@@ -58,11 +60,16 @@ void createtable(dbobject * db,sqlhelpmap * mapobj,char * tablename);
 void do_exit(PGconn *conn,PGresult * res);
 int checktable(PGconn * conn,char * tablename);
 void definetablevalues(sqlhelpmap * m_map);
+int getlastrowid(PGconn * conn,char tablename[]);
+int getextant_bedrates(int * result,PGconn * conn , int hospitalid);
+int selectbedby_id(PGconn * conn , int hospital_id , int rate);
 /*=============================================================================*/
 
 
 void insertdata(dbobject * db,char tablename[]);
 char * defineinsertsql(dbobject * db,char table[]);	
+int definebedrate(PGconn * conn,int hospital);
+char * gen_current_date();
 
 
 
