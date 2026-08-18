@@ -1,0 +1,27 @@
+{"success":true,"data":[{"id":"cmmdjge5e00mkutgrn2025lta","title":"General Knowledge Trivia",
+"description":
+"A fun mix of trivia questions spanning science, culture, sports,geography, and more. How broad is your general knowledge? Challenge yourself and find out!",
+"category":"General Knowledge","categoryId":"cmmoua9wg0043ywutfsm17go8","categoryName":"Trivia",
+"categorySlug":"trivia","topic":"General Knowledge","topicSlug":"general-knowledge","difficulty":"EASY",
+"tags":["trivia","general-knowledge","fun"],"questionCount":10,"plays":4753,"slug":null},{"id":
+"cmmdjge2800bqutgrh5shuktc","title":"Geography Challenge","description":
+"Test your knowledge of world geography including continents, countries, capitals, rivers, mountain ranges, and physical features of our planet.",
+"category":"Geography","categoryId":"cmmoua9p7002kywutvjft928h","categoryName":"World Capitals",
+"categorySlug":"world-capitals","topic":"Geography","topicSlug":"geography","difficulty":"EASY","tags":
+["geography","world","countries"],"questionCount":8,"plays":3495,"slug":null},{"id":
+"cmmdjge1s00acutgrtsjp7coa","title":"World History Essentials","description":
+"Journey through pivotal moments in world history from ancient civilizations to the modern era. Test your knowledge of empires, revolutions, and the events that shaped our world.",
+"category":"History","categoryId":"cmmoua9nx0027ywutwllh4qed","categoryName":"World Wars","categorySlug":
+"world-wars","topic":"History","topicSlug":"history","difficulty":"MEDIUM","tags":["history",
+"world-history","civilizations"],"questionCount":10,"plays":2559,"slug":null},{"id":
+"cmmdjgdzb004autgrtn29hcbk","title":"Python Data Structures","description":
+"Explore Python's built-in data structures including lists, tuples, dictionaries, sets, and their methods. Covers comprehensions, performance characteristics, and common patterns.",
+"category":"Programming","categoryId":"cmmoua9a30001ywutm95tppwv","categoryName":"JavaScript","categorySlug"
+:"javascript","topic":"Programming","topicSlug":"programming","difficulty":"MEDIUM","tags":
+["python","data-structures"],"questionCount":8,"plays":2367,"slug":null},{"id":"cmmdjge4g00j8utgrz2bazgdi",
+"title":"Biology Essentials","description":
+"From DNA to ecosystems, explore fundamental biology concepts including cell biology, genetics, evolution, and ecology. Perfect for students and lifelong learners.",
+"category":"Science","categoryId":"cmmoua9mi001uywutph1vgmxa","categoryName":"Physics","categorySlug":
+"physics","topic":"Science","topicSlug":"science","difficulty":"MEDIUM","tags":["biology","science",
+"genetics","ecology"],"questionCount":8,"plays":2082,"slug":null}],"meta":{"limit":5,"total":1139,
+"offset":0}}

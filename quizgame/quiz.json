@@ -1,0 +1,76 @@
+{"success":true,"data":[{"id":"cmmdjge5e00mlutgrmclp74gu","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"How many planets are in our solar system?","type":"MULTIPLE_CHOICE","difficulty":"EASY",
+"explanation":"There are 8 planets in our solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune. Pluto was reclassified as a 'dwarf planet' by the International Astronomical Union in 2006 because it hasn't 'cleared the neighborhood' of its orbit.",
+"answers":[{"id":"cmmdjge5e00mmutgr8xaoz0js","text":"8","isCorrect":true},
+{"id":"cmmdjge5e00mnutgru0iraq8r","text":"9","isCorrect":false},
+{"id":"cmmdjge5e00moutgru7y8o8up","text":"7","isCorrect":false},
+{"id":"cmmdjge5e00mputgr9piist8d","text":"10","isCorrect":false}],
+"category":"General Knowledge"},{"id":"cmmdjge5e00mqutgrxgzk4g60",
+"quizId":"cmmdjge5e00mkutgrn2025lta","text":"What is the hardest natural substance on Earth?",
+"type":"MULTIPLE_CHOICE","difficulty":"EASY",
+"explanation":
+"Diamond is the hardest known natural material,scoring 10 on the Mohs hardness scale. It is made of carbon atoms arranged in a crystal structure called diamond cubic. While diamond is the hardest, it is not the toughest -- it can shatter along its cleavage planes. Some synthetic materials like wurtzite boron nitride may be harder under certain conditions.",
+"answers":[{"id":"cmmdjge5e00mrutgr7szig6fn","text":"Diamond","isCorrect":true},
+{"id":"cmmdjge5e00msutgr1zh31te2","text":"Quartz","isCorrect":false},
+{"id":"cmmdjge5e00mtutgrikrweacv","text":"Titanium","isCorrect":false},
+{"id":"cmmdjge5e00muutgry4tz7c35","text":"Obsidian","isCorrect":false}],"category":"General Knowledge"},
+{"id":"cmmdjge5f00mvutgrmicpjip7","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"In which country was the game of chess invented?","type":"MULTIPLE_CHOICE","difficulty":"MEDIUM",
+"explanation":"Chess originated in India around the 6th century CE, where it was known as 'chaturanga.' The game spread to Persia, where it became 'shatranj,' and then to the Arab world and eventually Europe. The modern rules, including the powerful queen and bishop movements, developed in Europe around the 15th century.",
+"answers":[{"id":"cmmdjge5f00mwutgr2bh0h1np","text":"India","isCorrect":true},
+{"id":"cmmdjge5f00mxutgrncqs3qu4","text":"China","isCorrect":false},
+{"id":"cmmdjge5f00myutgrcnynoju8","text":"Persia (Iran)","isCorrect":false},
+{"id":"cmmdjge5f00mzutgrk027vd4z","text":"Greece","isCorrect":false}],"category":"General Knowledge"},
+{"id":"cmmdjge5f00n0utgrxo8n3a2w","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"What is the largest organ in the human body?","type":"MULTIPLE_CHOICE","difficulty":"EASY",
+"explanation":
+"The skin is the largest organ of the human body, weighing about 8 pounds (3.6 kg) and covering approximately 22 square feet (2 square meters) in an average adult. It serves as a protective barrier against pathogens, UV radiation, and physical damage, and also helps regulate body temperature and provides sensory information.",
+"answers":[{"id":"cmmdjge5f00n1utgrymapgda5","text":"Skin","isCorrect":true},
+{"id":"cmmdjge5f00n2utgrj2d3qz3t","text":"Liver","isCorrect":false},{"id":"cmmdjge5f00n3utgreec8z2ml",
+"text":"Heart","isCorrect":false},{"id":"cmmdjge5f00n4utgrghs7guaz","text":"Lungs","isCorrect":false}],
+"category":"General Knowledge"},{"id":"cmmdjge5f00n5utgreffark9v","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"Which language has the most native speakers in the world?","type":"MULTIPLE_CHOICE","difficulty":
+"MEDIUM","explanation":
+"Mandarin Chinese has the most native speakers in the world, with approximately 920 million native speakers. Spanish is second with about 475 million, followed by English with approximately 373 million native speakers. However, English has the most total speakers (including non-native) at over 1.5 billion.",
+"answers":[{"id":"cmmdjge5f00n6utgrmlqx4xo4","text":"Mandarin Chinese","isCorrect":true},
+{"id":"cmmdjge5f00n7utgrqzdjmqsu","text":"English","isCorrect":false},{"id":"cmmdjge5f00n8utgr2il1ytyo",
+"text":"Spanish","isCorrect":false},{"id":"cmmdjge5f00n9utgrh66r3b9i","text":"Hindi","isCorrect":false}],
+"category":"General Knowledge"},{"id":"cmmdjge5f00nautgrn3k3laqe","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"Honey never spoils and edible honey has been found in ancient Egyptian tombs.","type":"TRUE_FALSE",
+"difficulty":"EASY","explanation":
+"True. Honey is one of the few foods that can last indefinitely when properly stored. Its low moisture content, acidic pH, and natural hydrogen peroxide production create an inhospitable environment for bacteria. Archaeologists have found 3,000-year-old honey in Egyptian tombs that was still perfectly edible.",
+"answers":[{"id":"cmmdjge5f00nbutgrzge5ogmi","text":"True","isCorrect":true},
+{"id":"cmmdjge5f00ncutgrn0usydo6","text":"False","isCorrect":false}],"category":"General Knowledge"},
+{"id":"cmmdjge5f00ndutgraze1q5s1","quizId":"cmmdjge5e00mkutgrn2025lta","text":
+"What is the most abundant gas in Earth's atmosphere?","type":"MULTIPLE_CHOICE","difficulty":"EASY",
+"explanation":
+"Nitrogen makes up approximately 78% of Earth's atmosphere by volume. Oxygen is second at about 21%, followed by argon at about 0.93%, and carbon dioxide at about 0.04%. Nitrogen is relatively inert and plays a crucial role in the nitrogen cycle, which is essential for life on Earth.",
+"answers":[{"id":"cmmdjge5f00neutgr7rjckiqo","text":"Nitrogen (78%)","isCorrect":true},
+{"id":"cmmdjge5f00nfutgrrg99rdpt","text":"Oxygen (21%)","isCorrect":false},{"id":
+"cmmdjge5f00ngutgrtl6rjm5u","text":"Carbon dioxide","isCorrect":false},{"id":
+"cmmdjge5f00nhutgrr71o3pcq","text":"Hydrogen","isCorrect":false}],"category":"General Knowledge"},
+{"id":"cmmdjge5f00niutgrag20wuga","quizId":"cmmdjge5e00mkutgrn2025lta","text":
+"How many bones does an adult human body have?","type":"MULTIPLE_CHOICE","difficulty":"MEDIUM",
+"explanation":
+"An adult human body has 206 bones. Babies are born with approximately 270 bones, but many fuse together as they grow. The smallest bone is the stapes (stirrup) in the ear, and the largest is the femur (thighbone). Bones make up about 15% of body weight and serve functions including support, protection, movement, blood cell production, and mineral storage.",
+"answers":[{"id":"cmmdjge5f00njutgrvc67csxp","text":"206","isCorrect":true},{"id":
+"cmmdjge5f00nkutgrz7y4viuu","text":"186","isCorrect":false},{"id":"cmmdjge5f00nlutgrtrt35u9d",
+"text":"256","isCorrect":false},{"id":"cmmdjge5f00nmutgr62j8pwxp","text":"306","isCorrect":false}],
+"category":"General Knowledge"},{"id":"cmmdjge5f00nnutgrox37vw8z","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"Which planet is known as the Red Planet?","type":"MULTIPLE_CHOICE","difficulty":"EASY",
+"explanation":
+"Mars is known as the Red Planet because of its reddish appearance, caused by iron oxide (rust) on its surface. Mars is the fourth planet from the Sun and has the largest volcano in the solar system (Olympus Mons) and one of the largest canyons (Valles Marineris). It has been a primary target for exploration with numerous rovers and landers.",
+"answers":[{"id":"cmmdjge5f00noutgrku6qfs9f","text":"Mars","isCorrect":true},{"id":
+"cmmdjge5f00nputgrkbry4xlu","text":"Jupiter","isCorrect":false},{"id":"cmmdjge5f00nqutgrbg5xdwqb",
+"text":"Venus","isCorrect":false},{"id":"cmmdjge5f00nrutgrm4ki6zfo","text":"Mercury","isCorrect":false}],
+"category":"General Knowledge"},{"id":"cmmdjge5f00nsutgr13fynapb","quizId":"cmmdjge5e00mkutgrn2025lta",
+"text":"What is the tallest mountain in the world measured from sea level?","type":"MULTIPLE_CHOICE",
+"difficulty":"EASY","explanation":
+"Mount Everest is the tallest mountain above sea level at 8,849 meters (29,032 feet). However, if measured from base to peak, Mauna Kea in Hawaii is taller at about 10,203 meters, though most of it is underwater. Mount Everest sits on the border of Nepal and Tibet (China) in the Himalaya mountain range.",
+"answers":[{"id":"cmmdjge5f00ntutgryr8urqw7","text":"Mount Everest","isCorrect":true},
+{"id":"cmmdjge5f00nuutgrvx456n8b","text":"K2","isCorrect":false},{"id":"cmmdjge5f00nvutgrqvs49xii",
+"text":"Kangchenjunga","isCorrect":false},{"id":"cmmdjge5f00nwutgr08k4t254","text":"Mount Kilimanjaro",
+"isCorrect":false}],
+"category":"General Knowledge"}],"meta":{"total":10,"quizId"}}
+
+
