@@ -1,4 +1,6 @@
 #include "apihandler.h"
+#include "parsehandler.h"
+
 
 #define URL_LENGTH 64
 #define URL_LENGTH_MID 85
@@ -13,7 +15,8 @@ void initAPP();
 void refillmenu();
 void refillquestions();
 void mainmenu();
-void listcategories();
+void defineuser_category();
+void randomquiz();
 
 
 void gamecleanup();

@@ -37,10 +37,29 @@ void refillquestions(){
 
 
 
-void listcategories(){
-    /*==================================================================================================*/
+void defineuser_category(){
+    char catIDs[10][75];
+    int pickup;
+
+    extract_categories(catIDs);
+
+    printf("\nchoose category: ");
+    scanf("%d",&pickup);
+    while(strcmp(catIDs[pickup],NULL)){
+        printf("\nchoose category:");
+        scanf("%d",&pickup);
+    };
     
-    
+
+
+
+
+};
+
+
+
+void randomquiz(){
+
 
 };
 
@@ -49,7 +68,7 @@ void listcategories(){
 void mainmenu(){
     int pickup;
     printf("\t\t==================Quiz game==================\n\n\nchoose by number:\n"
-    "1-define category for game\n2-Unknow\n\t:");
+    "1-define category for game\n2-random quiz\n\t:");
     scanf("%d",&pickup);
 
     while(pickup>1 || pickup<1){
@@ -59,11 +78,13 @@ void mainmenu(){
 
     switch (pickup) {
         case 1:
-            listcategories();
+            defineuser_category();
             break;
+        case 2:
+            randomquiz();
 
-    
     }
+
 
 };
 
