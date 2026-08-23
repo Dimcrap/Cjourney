@@ -3,7 +3,7 @@
 
 
 #define URL_LENGTH 64
-#define URL_LENGTH_MID 85
+#define URL_LENGTH_MID 95
 
 extern curlticket ticket;
 extern char  listurl[URL_LENGTH];
@@ -16,7 +16,8 @@ void refillmenu();
 void refillquestions();
 void mainmenu();
 void defineuser_category();
-void randomquiz();
+void askquiz();
+
 
 
 void gamecleanup();
