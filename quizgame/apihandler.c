@@ -25,7 +25,6 @@ int initcurl(curlticket * ticket){
 		return (int) ticket->result;
 	}
 
-	
 	    ticket->curl = curl_easy_init();
 		if(!ticket->curl){
 			fprintf(stderr,"curl_easy_intit failed!\n");
@@ -36,6 +35,7 @@ int initcurl(curlticket * ticket){
 
 
 void fetchurl(curlticket * ticket,char * url){
+	printf("fetching url  :%s\n",url);
 	curl_easy_setopt(
 				ticket->curl , CURLOPT_URL, url);
 	curl_easy_setopt(ticket->curl, CURLOPT_WRITEFUNCTION
@@ -48,6 +48,7 @@ void writeoutput(char filepath[],curlticket * ticket){
 
 	curl_easy_setopt(ticket->curl, CURLOPT_WRITEDATA, file);
 
+	
 	ticket->result = curl_easy_perform(ticket->curl);
 				
 				if ( ticket->result != CURLE_OK ) {

@@ -25,7 +25,7 @@ void extract_categories( char  catgeoryId[10][75] );
 int countkeyword( cJSON * dataarray , char key[] );
 void pickaquiz( quiz * qz );
 void extractanswers( cJSON * answersarray , quiz * quizinfo );
-
+char * extractrandom_catid();
 
 
 void extract_quiz();
